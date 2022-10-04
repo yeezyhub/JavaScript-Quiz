@@ -11,7 +11,7 @@
 <header class="header">
     
   <a id="highScore" href="#highScore">View High Scores</a>
-  <h3>Time Left: <span id="timeCounter">60</span> </h3>
+  <h3 id="timer">Time Left: <span id="timeCounter">60</span> </h3>
 
 </header>
 
@@ -20,9 +20,10 @@
   <!-- First Page -->
   <section id="firstPage">
 
-    <h1>Coding Quiz Challenge</h1>
-    <p>Welcome to the quiz! Your goal is to answer all questions correctly within the given time limit of 60 seconds. Keep in mind every incorrect answer will penalize your score/time by ten seconds. </p>
+    <h1 id="h1">Coding Quiz Challenge</h1>
+    <p id="p">Welcome to the quiz! Your goal is to answer all questions correctly within the given time limit of 60 seconds. Keep in mind every incorrect answer will penalize your score/time by 10 seconds. </p>
     <button class="startButton button" id="startButton">Start Quiz</button>
+    <button class="button hide" onClick="goBack()" id="goBackButton">Go Back</button>
 
   </section>
 
@@ -37,11 +38,13 @@
         <button class="button">Answer 3</button>
         <button class="button">Answer 4</button> -->
       </div>
+
+
     </section>
   </section>
 
     <footer class="footer">
-      <h4>Made by yeezyhub.</h4>
+      <!-- <h4>Made by yeezyhub.</h4> -->
     </footer>
 <script src="./assets/js/script.js"></script>
 </body>

@@ -1,10 +1,32 @@
 *, *::before, *::after
 {
     box-sizing: border-box;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
 }
 
+
 .header h3{
-float: right;
+margin: 10px 10px 0 0;
+position: absolute; 
+top: 0; 
+right: 0; 
+width: 150px;
+text-align:right;
+}
+
+.header #highScore{
+    margin: 10px 0 0 10px;
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 150px;
+    text-align:left;
+    width: fit-content;
+}
+
+#firstPage {
+    margin-top: 250px;
 }
 
 body{
@@ -23,7 +45,7 @@ body{
 
 #questionContainer{
     width: 800px;
-    max-width: 80%;
+    max-width: 50%;
     border-radius: 5px;
     padding: 10px;
 }
@@ -35,34 +57,58 @@ body{
 }
 
 .button{
-    background-color: rgb(37, 130, 251);
+    background-color: rgb(0, 57, 131);
     color: white;
     border-radius: 5px;
+    text-align: left;
+    transition-duration: 0.4s;
+    cursor: pointer;
 }
 
 .button:hover{
+    background-color: rgb(37, 130, 251);
     border-color: black;
     cursor: grab;
-}
+}   
 
 #highScore{
-    color: rgb(37, 130, 251);
+    color: rgb(0, 57, 131);
     text-decoration: none;
+    transition-duration: 0.4s;
 }
 
 #highScore:hover{
     cursor: grab;
+    color: rgb(37, 130, 251);
+
 }
 
 .footer{
-    display: flex;
+    /* display: flex; */
     width: 100vw;
     height: 100vh;
     justify-content: center;
     align-items: center;
+    bottom: 0;
 }
 
 /* Usage of Class to Hide */
 .hide{
     display: none;
 }
+
+#firstPage{
+    text-align: center;
+}
+
+#question {
+    margin-top: 250px;
+    font-weight: bolder;
+    width: 850px;
+    font-size: larger;
+}
+
+/* .footer{
+    text-align: center;
+    vertical-align: bottom;
+} */

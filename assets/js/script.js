@@ -2,30 +2,41 @@
 const startButton = document.getElementById('startButton');
 startButton.addEventListener('click', startGame);
 
+const highScore = document.getElementById('highScore');
+highScore.addEventListener('click', showHighScore);
+
+const h1 = document.getElementById('h1');
+const p = document.getElementById('p');
+
+const questionElement = document.getElementById('question');
+const answerButtons = document.getElementById('answerButtons');
+
 const questionContainer = document.getElementById('questionContainer');
 const firstPage = document.getElementById('firstPage');
 const button = document.getElementsByClassName('button');
 
+const timerCount = document.getElementById('timer');
+const timeCounter = document.querySelector('#timeCounter');
+
+const goBackButton = document.getElementById('goBackButton');
+
+
 let time = 60;
 let score = 0;
-const timeCounter = document.querySelector('#timeCounter');
 let remainingTime;
 
 let shuffledQuestions;
 let questionNumber = 0;
 
-const questionElement = document.getElementById('question');
-const answerButtons = document.getElementById('answerButtons');
 
 
 function timer() {
 
     if (time <= 0) {
         clearInterval(remainingTime);
-        score();
     }
-    timeCounter.textContent = time;
     time--;
+    timeCounter.textContent = time;
 
 }
 
@@ -36,11 +47,12 @@ function timerStart() {
 
 function startGame() {
     startButton.classList.add('hide'); //hides the start button
-    firstPage.classList.add('hide');
+    firstPage.classList.add('hide'); //hides the first page
     questionContainer.classList.remove('hide');
     timerStart();
     shuffledQuestions = questions.sort(() => Math.random() - 0.5); //randomizez the questions
-    nextQuestion();
+    nextQuestion(); //brings the next question
+    
 }
 
 
@@ -53,8 +65,8 @@ function showQuestion(questions) {
     questionElement.textContent = questions.question; //shows the question
 
     for (let i = 0; i < questions.answers.length; i++) {
-        var choice = questions.answers[i];
-        var choiceButtons = document.createElement('button'); // creating button divs forEach choice in the questions array
+        let choice = questions.answers[i];
+        let choiceButtons = document.createElement('button'); // creating button divs forEach choice in the questions array
         choiceButtons.setAttribute('class', 'button'); // adding class to created buttons
         choiceButtons.setAttribute('value', choice); //adding values to created buttons so we can compare the value with the click
         choiceButtons.textContent = questions.answers[i]; // adding text to the buttons
@@ -64,22 +76,40 @@ function showQuestion(questions) {
 }
 
 function selectAnswer(event) {
-    var buttonClicked = event.target;
+    const buttonClicked = event.target;
+    const correctAnswer = buttonClicked.dataset.answer;
     if (buttonClicked.value === questions[questionNumber].answer) {
         score++;
         console.log(score);
+        alert('Correct!');
     } else {
         time = time - 10;
+        alert('Incorrect.');
     }
     // choiceButtons.addEventListener('click', choice);
     questionNumber++;
     showQuestion();
 }
 
-function highScore() {
+function showHighScore() {
+  
+    timerCount.classList.add('hide');
+    startButton.classList.add('hide');
+    h1.textContent = 'High Scores';
+    p.textContent = 'Jason: 30\nSteven: 20';
+    goBackButton.classList.remove('hide');
+    questionContainer.classList.add('hide');
+    firstPage.classList.remove('hide');
+
+}
+
+function scoreBoard() {
     
 }
 
+function goBack(){
+    window.location.reload();
+} 
 
 
 const questions = [
