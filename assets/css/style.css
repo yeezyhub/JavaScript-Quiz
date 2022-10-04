@@ -1,0 +1,68 @@
+*, *::before, *::after
+{
+    box-sizing: border-box;
+}
+
+.header h3{
+float: right;
+}
+
+body{
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+
+    /* Makes everything centered */
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#questionContainer{
+    width: 800px;
+    max-width: 80%;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+#answerButtons{
+    display: grid; 
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.button{
+    background-color: rgb(37, 130, 251);
+    color: white;
+    border-radius: 5px;
+}
+
+.button:hover{
+    border-color: black;
+    cursor: grab;
+}
+
+#highScore{
+    color: rgb(37, 130, 251);
+    text-decoration: none;
+}
+
+#highScore:hover{
+    cursor: grab;
+}
+
+.footer{
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Usage of Class to Hide */
+.hide{
+    display: none;
+}
