@@ -108,6 +108,18 @@ body{
     font-size: larger;
 }
 
+#initialsContainer{
+    display: flex;
+}
+
+#textBox{
+    height: fit-content;
+}
+
+#initials{
+    margin-top: auto;
+}
+
 /* .footer{
     text-align: center;
     vertical-align: bottom;

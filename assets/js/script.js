@@ -7,6 +7,8 @@ highScore.addEventListener('click', showHighScore);
 
 const h1 = document.getElementById('h1');
 const p = document.getElementById('p');
+const initials = document.getElementById('initials');
+const textBox = document.getElementById('textBox');
 
 const questionElement = document.getElementById('question');
 const answerButtons = document.getElementById('answerButtons');
@@ -20,8 +22,11 @@ const timeCounter = document.querySelector('#timeCounter');
 
 const goBackButton = document.getElementById('goBackButton');
 
+const correct = document.getElementById('correct');
+const incorrect = document.getElementById('incorrect');
 
-let time = 60;
+
+let time = 30;
 let score = 0;
 let remainingTime;
 
@@ -33,10 +38,12 @@ let questionNumber = 0;
 function timer() {
 
     if (time <= 0) {
+        time = 0;
         clearInterval(remainingTime);
+        scoreBoard();
     }
-    time--;
     timeCounter.textContent = time;
+    time--;
 
 }
 
@@ -61,30 +68,33 @@ function nextQuestion() {
 }
 
 function showQuestion(questions) {
-    var currentQuestion = questions[questionNumber]
+    // var currentQuestion = questions[questionNumber];
     questionElement.textContent = questions.question; //shows the question
+    let choiceButtons;
 
     for (let i = 0; i < questions.answers.length; i++) {
         let choice = questions.answers[i];
-        let choiceButtons = document.createElement('button'); // creating button divs forEach choice in the questions array
+        choiceButtons = document.createElement('button'); // creating button divs forEach choice in the questions array
         choiceButtons.setAttribute('class', 'button'); // adding class to created buttons
         choiceButtons.setAttribute('value', choice); //adding values to created buttons so we can compare the value with the click
         choiceButtons.textContent = questions.answers[i]; // adding text to the buttons
         answerButtons.appendChild(choiceButtons); //attaching created buttons to answerButtons div
     }
+    choiceButtons.addEventListener('click', selectAnswer);
 
 }
 
 function selectAnswer(event) {
+    console.log(event);
     const buttonClicked = event.target;
     const correctAnswer = buttonClicked.dataset.answer;
     if (buttonClicked.value === questions[questionNumber].answer) {
         score++;
         console.log(score);
-        alert('Correct!');
+        correct.classList.remove('hide');
     } else {
         time = time - 10;
-        alert('Incorrect.');
+        incorrect.classList.remove('hide');
     }
     // choiceButtons.addEventListener('click', choice);
     questionNumber++;
@@ -104,7 +114,14 @@ function showHighScore() {
 }
 
 function scoreBoard() {
-    
+    firstPage.classList.remove('hide');
+    questionContainer.classList.add('hide');
+    initials.classList.remove('hide');
+    textBox.classList.remove('hide');
+    h1.textContent = 'All done!';
+    p.textContent = 'Your final score is ' + score + '.';
+    initials.value;
+    textBox.value;
 }
 
 function goBack(){
@@ -131,7 +148,7 @@ const questions = [
         question: 'How can you add a comment in a JavaScript?',
         answers: [ 
             '//This is a comment', 
-            '/* This is a comment', 
+            '/* This is a comment*/', 
             '<!--This is a comment-->'
         ],
         answer: '//This is a comment'
