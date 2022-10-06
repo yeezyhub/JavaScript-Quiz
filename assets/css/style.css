@@ -110,6 +110,8 @@ body{
 
 #initialsContainer{
     display: flex;
+    margin-bottom: 10px;
+    justify-content: center;
 }
 
 #textBox{
@@ -125,6 +127,10 @@ body{
 #submitButton{
     height: fit-content;
     margin-left: 10px;
+}
+
+.line{
+    margin: auto;
 }
 
 /* .footer{

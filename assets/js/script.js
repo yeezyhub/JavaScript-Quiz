@@ -28,7 +28,7 @@ const incorrect = document.getElementById('incorrect');
 const submitButton = document.getElementById('submitButton');
 submitButton.addEventListener('click', submit);
 
-
+const initialsContainer = document.getElementById('initialsContainer');
 
 let time = 30;
 let score = 0;
@@ -38,7 +38,7 @@ let shuffledQuestions;
 let questionNumber = 0;
 let setScoreLocal;
 
-
+var li;
 
 function timer() {
 
@@ -116,7 +116,19 @@ function showHighScore() {
     submitButton.classList.add('hide');
     initials.classList.add('hide');
     textBox.classList.add('hide');
-    p.textContent = JSON.parse(localStorage.getItem('AB'));
+    p.textContent='';
+    initialsContainer.style.display = "block";
+
+    //for loop gets high scores from local and print it to the highscore list
+    for (let i = 0; i < localStorage.length; i++) {
+        // var ini = JSON.parse(localStorage.getItem('AB'));
+        var node = document.createElement("li");
+        node.classList.add('line');
+        var textnode = document.createTextNode(localStorage.key(i) + ': ' + JSON.parse(localStorage.getItem('AB')));
+        node.appendChild(textnode);
+        document.getElementById("initialsContainer").appendChild(node);
+    }
+
 
 }
 
@@ -134,6 +146,8 @@ function scoreBoard() {
 
 function submit() {
     setScoreLocal = localStorage.setItem(textBox.value, JSON.stringify(score));
+    textBox.value = '';
+    p.textContent='Submitted! Click "View High Scores" to see the scoreboard.';
 }
 
 function goBack(){
