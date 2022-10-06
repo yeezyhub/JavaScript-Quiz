@@ -25,6 +25,10 @@ const goBackButton = document.getElementById('goBackButton');
 const correct = document.getElementById('correct');
 const incorrect = document.getElementById('incorrect');
 
+const submitButton = document.getElementById('submitButton');
+submitButton.addEventListener('click', submit);
+
+
 
 let time = 30;
 let score = 0;
@@ -32,6 +36,7 @@ let remainingTime;
 
 let shuffledQuestions;
 let questionNumber = 0;
+let setScoreLocal;
 
 
 
@@ -85,7 +90,6 @@ function showQuestion(questions) {
 }
 
 function selectAnswer(event) {
-    console.log(event);
     const buttonClicked = event.target;
     const correctAnswer = buttonClicked.dataset.answer;
     if (buttonClicked.value === questions[questionNumber].answer) {
@@ -106,10 +110,13 @@ function showHighScore() {
     timerCount.classList.add('hide');
     startButton.classList.add('hide');
     h1.textContent = 'High Scores';
-    p.textContent = 'Jason: 30\nSteven: 20';
     goBackButton.classList.remove('hide');
     questionContainer.classList.add('hide');
     firstPage.classList.remove('hide');
+    submitButton.classList.add('hide');
+    initials.classList.add('hide');
+    textBox.classList.add('hide');
+    p.textContent = JSON.parse(localStorage.getItem('AB'));
 
 }
 
@@ -118,10 +125,15 @@ function scoreBoard() {
     questionContainer.classList.add('hide');
     initials.classList.remove('hide');
     textBox.classList.remove('hide');
+    submitButton.classList.remove('hide');
     h1.textContent = 'All done!';
     p.textContent = 'Your final score is ' + score + '.';
     initials.value;
     textBox.value;
+}
+
+function submit() {
+    setScoreLocal = localStorage.setItem(textBox.value, JSON.stringify(score));
 }
 
 function goBack(){
@@ -152,6 +164,26 @@ const questions = [
             '<!--This is a comment-->'
         ],
         answer: '//This is a comment'
+    },
+    {
+        question: 'Which of the following will write the message “Hello World!” in an alert box?',
+        answers: [ 
+            'alertBox(“Hello World!”);', 
+            'alert(Hello World!);', 
+            'msgAlert(“Hello World!”);',
+            'alert(“Hello World!”);'
+        ],
+        answer: 'alert(“Hello World!”);'
+    },
+    {
+        question: 'What will Boolean(3 < 7) return?',
+        answers: [ 
+            'true', 
+            'false', 
+            'NaN',
+            'SyntaxError'
+        ],
+        answer: 'true'
     }
 
 ]

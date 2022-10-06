@@ -114,10 +114,17 @@ body{
 
 #textBox{
     height: fit-content;
+    margin-left: 10px;
+
 }
 
 #initials{
     margin-top: auto;
+}
+
+#submitButton{
+    height: fit-content;
+    margin-left: 10px;
 }
 
 /* .footer{
