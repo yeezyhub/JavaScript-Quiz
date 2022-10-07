@@ -1,9 +1,8 @@
 // gets the id for start button from HTML file and associates it with clicking action to start the game 
 const startButton = document.getElementById('startButton');
-startButton.addEventListener('click', startGame);
 
 const highScore = document.getElementById('highScore');
-highScore.addEventListener('click', showHighScore);
+
 
 const h1 = document.getElementById('h1');
 const p = document.getElementById('p');
@@ -26,11 +25,11 @@ const correct = document.getElementById('correct');
 const incorrect = document.getElementById('incorrect');
 
 const submitButton = document.getElementById('submitButton');
-submitButton.addEventListener('click', submit);
+
 
 const initialsContainer = document.getElementById('initialsContainer');
 
-let time = 30;
+let time = 60;
 let score = 0;
 let remainingTime;
 
@@ -39,6 +38,52 @@ let questionNumber = 0;
 let setScoreLocal;
 
 var li;
+const questions = [
+    {
+        question: 'Inside which HTML element do we put the JavaScript?',
+        answers: ['<scripting>', '<js>', '<script>', '<javascript>'],
+        answer: '<script>'
+    },
+    {
+        question: 'How do you create a function in JavaScript?',
+        answers: [
+            'function:myFunction()',
+            'function = myFunction()',
+            'function myFunction()'
+        ],
+        answer: 'function myFunction()'
+    },
+    {
+        question: 'How can you add a comment in a JavaScript?',
+        answers: [
+            '//This is a comment',
+            '/* This is a comment*/',
+            '<!--This is a comment-->'
+        ],
+        answer: '//This is a comment'
+    },
+    {
+        question: 'Which of the following will write the message “Hello World!” in an alert box?',
+        answers: [
+            'alertBox(“Hello World!”);',
+            'alert(Hello World!);',
+            'msgAlert(“Hello World!”);',
+            'alert(“Hello World!”);'
+        ],
+        answer: 'alert(“Hello World!”);'
+    },
+    {
+        question: 'What will Boolean(3 < 7) return?',
+        answers: [
+            'true',
+            'false',
+            'NaN',
+            'SyntaxError'
+        ],
+        answer: 'true'
+    }
+
+]
 
 function timer() {
 
@@ -69,11 +114,14 @@ function startGame() {
 
 
 function nextQuestion() {
+    console.log(shuffledQuestions)
+    console.log(questionNumber)
     showQuestion(shuffledQuestions[questionNumber]);
 }
 
 function showQuestion(questions) {
     // var currentQuestion = questions[questionNumber];
+    console.log(questions)
     questionElement.textContent = questions.question; //shows the question
     let choiceButtons;
 
@@ -84,8 +132,8 @@ function showQuestion(questions) {
         choiceButtons.setAttribute('value', choice); //adding values to created buttons so we can compare the value with the click
         choiceButtons.textContent = questions.answers[i]; // adding text to the buttons
         answerButtons.appendChild(choiceButtons); //attaching created buttons to answerButtons div
+        choiceButtons.addEventListener('click', selectAnswer);
     }
-    choiceButtons.addEventListener('click', selectAnswer);
 
 }
 
@@ -102,11 +150,11 @@ function selectAnswer(event) {
     }
     // choiceButtons.addEventListener('click', choice);
     questionNumber++;
-    showQuestion();
+    nextQuestion();
 }
 
 function showHighScore() {
-  
+
     timerCount.classList.add('hide');
     startButton.classList.add('hide');
     h1.textContent = 'High Scores';
@@ -116,13 +164,13 @@ function showHighScore() {
     submitButton.classList.add('hide');
     initials.classList.add('hide');
     textBox.classList.add('hide');
-    p.textContent='';
+    p.textContent = '';
     initialsContainer.style.display = "block";
 
     //for loop gets high scores from local and print it to the highscore list
     for (let i = 0; i < localStorage.length; i++) {
 
-         node = document.createElement("li");
+        node = document.createElement("li");
         node.classList.add('line');
         let textnode = document.createTextNode(localStorage.key(i) + ': ' + JSON.parse(localStorage.getItem(localStorage.key(i))));
         node.appendChild(textnode);
@@ -147,57 +195,13 @@ function scoreBoard() {
 function submit() {
     setScoreLocal = localStorage.setItem(textBox.value, JSON.stringify(score));
     textBox.value = '';
-    p.textContent='Submitted! Click "View High Scores" to see the scoreboard.';
+    p.textContent = 'Submitted! Click "View High Scores" to see the scoreboard.';
 }
 
-function goBack(){
+function goBack() {
     window.location.reload();
-} 
+}
 
-
-const questions = [
-    {
-        question: 'Inside which HTML element do we put the JavaScript?',
-        answers: [ '<scripting>', '<js>', '<script>', '<javascript>'],
-        answer: '<script>'
-    },
-    {
-        question: 'How do you create a function in JavaScript?',
-        answers: [ 
-            'function:myFunction()', 
-            'function = myFunction()', 
-            'function myFunction()'
-        ],
-        answer: 'function myFunction()'
-    },
-    {
-        question: 'How can you add a comment in a JavaScript?',
-        answers: [ 
-            '//This is a comment', 
-            '/* This is a comment*/', 
-            '<!--This is a comment-->'
-        ],
-        answer: '//This is a comment'
-    },
-    {
-        question: 'Which of the following will write the message “Hello World!” in an alert box?',
-        answers: [ 
-            'alertBox(“Hello World!”);', 
-            'alert(Hello World!);', 
-            'msgAlert(“Hello World!”);',
-            'alert(“Hello World!”);'
-        ],
-        answer: 'alert(“Hello World!”);'
-    },
-    {
-        question: 'What will Boolean(3 < 7) return?',
-        answers: [ 
-            'true', 
-            'false', 
-            'NaN',
-            'SyntaxError'
-        ],
-        answer: 'true'
-    }
-
-]
+startButton.addEventListener('click', startGame);
+highScore.addEventListener('click', showHighScore);
+submitButton.addEventListener('click', submit);
