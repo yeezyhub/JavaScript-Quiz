@@ -121,10 +121,10 @@ function showHighScore() {
 
     //for loop gets high scores from local and print it to the highscore list
     for (let i = 0; i < localStorage.length; i++) {
-        // var ini = JSON.parse(localStorage.getItem('AB'));
-        var node = document.createElement("li");
+
+         node = document.createElement("li");
         node.classList.add('line');
-        var textnode = document.createTextNode(localStorage.key(i) + ': ' + JSON.parse(localStorage.getItem('AB')));
+        let textnode = document.createTextNode(localStorage.key(i) + ': ' + JSON.parse(localStorage.getItem(localStorage.key(i))));
         node.appendChild(textnode);
         document.getElementById("initialsContainer").appendChild(node);
     }
