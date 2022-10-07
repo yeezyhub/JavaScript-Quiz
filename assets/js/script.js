@@ -29,7 +29,7 @@ const submitButton = document.getElementById('submitButton');
 const initialsContainer = document.getElementById('initialsContainer');
 
 let time = 60;
-let score = 0;
+let score;
 let remainingTime;
 
 let shuffledQuestions;
@@ -148,7 +148,7 @@ function selectAnswer(event) {
     const correctAnswer = buttonClicked.dataset.answer;
     ans.classList.remove('hide');
     if (buttonClicked.value === questions[questionNumber].answer) {
-        score++;
+        // score++;
         ans.textContent = 'Correct!';
     } else {
         time = time - 10;
@@ -172,6 +172,7 @@ function showHighScore() {
     textBox.classList.add('hide');
     p.textContent = '';
     initialsContainer.style.display = "block";
+    highScore.textContent = '';
 
     //for loop gets high scores from local and print it to the highscore list
     for (let i = 0; i < localStorage.length; i++) {
@@ -188,8 +189,7 @@ function showHighScore() {
 
 function scoreBoard() {
     clearInterval(remainingTime);
-    time = 0;
-    timeCounter.textContent = time;
+    score = timeCounter.textContent = time;
     firstPage.classList.remove('hide');
     questionContainer.classList.add('hide');
     initials.classList.remove('hide');
@@ -204,7 +204,9 @@ function scoreBoard() {
 function submit() {
     setScoreLocal = localStorage.setItem(textBox.value, JSON.stringify(score));
     textBox.value = '';
-    p.textContent = 'Submitted! Click "View High Scores" to see the scoreboard.';
+    showHighScore();
+    // p.textContent = 'Submitted! Click "View High Scores" to see the scoreboard.';
+
 }
 
 function goBack() {
