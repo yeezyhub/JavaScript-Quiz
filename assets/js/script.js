@@ -21,8 +21,7 @@ const timeCounter = document.querySelector('#timeCounter');
 
 const goBackButton = document.getElementById('goBackButton');
 
-const correct = document.getElementById('correct');
-const incorrect = document.getElementById('incorrect');
+const ans = document.getElementById('answer');
 
 const submitButton = document.getElementById('submitButton');
 
@@ -88,8 +87,6 @@ const questions = [
 function timer() {
 
     if (time <= 0) {
-        time = 0;
-        clearInterval(remainingTime);
         scoreBoard();
     }
     timeCounter.textContent = time;
@@ -109,14 +106,21 @@ function startGame() {
     timerStart();
     shuffledQuestions = questions.sort(() => Math.random() - 0.5); //randomizez the questions
     nextQuestion(); //brings the next question
-    
+
 }
 
 
 function nextQuestion() {
-    console.log(shuffledQuestions)
-    console.log(questionNumber)
+    // console.log(shuffledQuestions)
+    // console.log(questionNumber)
+    if (questions.length === questionNumber) {
+        scoreBoard();
+        return;
+    }
+
     showQuestion(shuffledQuestions[questionNumber]);
+
+
 }
 
 function showQuestion(questions) {
@@ -124,6 +128,7 @@ function showQuestion(questions) {
     console.log(questions)
     questionElement.textContent = questions.question; //shows the question
     let choiceButtons;
+    answerButtons.textContent = '';
 
     for (let i = 0; i < questions.answers.length; i++) {
         let choice = questions.answers[i];
@@ -133,6 +138,7 @@ function showQuestion(questions) {
         choiceButtons.textContent = questions.answers[i]; // adding text to the buttons
         answerButtons.appendChild(choiceButtons); //attaching created buttons to answerButtons div
         choiceButtons.addEventListener('click', selectAnswer);
+        console.log(questionNumber);
     }
 
 }
@@ -140,13 +146,13 @@ function showQuestion(questions) {
 function selectAnswer(event) {
     const buttonClicked = event.target;
     const correctAnswer = buttonClicked.dataset.answer;
+    ans.classList.remove('hide');
     if (buttonClicked.value === questions[questionNumber].answer) {
         score++;
-        console.log(score);
-        correct.classList.remove('hide');
+        ans.textContent = 'Correct!';
     } else {
         time = time - 10;
-        incorrect.classList.remove('hide');
+        ans.textContent = 'Incorrect.';
     }
     // choiceButtons.addEventListener('click', choice);
     questionNumber++;
@@ -181,6 +187,9 @@ function showHighScore() {
 }
 
 function scoreBoard() {
+    clearInterval(remainingTime);
+    time = 0;
+    timeCounter.textContent = time;
     firstPage.classList.remove('hide');
     questionContainer.classList.add('hide');
     initials.classList.remove('hide');

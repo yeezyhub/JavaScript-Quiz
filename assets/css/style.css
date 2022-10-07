@@ -133,6 +133,11 @@ body{
     margin: auto;
 }
 
+#answer{
+    border-top: solid rgb(0, 57, 131) 2px;
+    padding-top: 10px;
+}
+
 /* .footer{
     text-align: center;
     vertical-align: bottom;
