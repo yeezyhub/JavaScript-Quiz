@@ -185,10 +185,10 @@ function showHighScore() {
     initialsContainer.style.display = "block";
     highScore.textContent = '';
 
-    //for loop gets high scores from local and print it to the highscore list
     node = document.createElement("ol");
     node.setAttribute('id', 'ol');
 
+    //for loop gets high scores from local and print it to the highscore list
     for (let i = 0; i < localStorage.length; i++) {
         let lines = document.createElement('li');
         node.appendChild(lines);
