@@ -3,7 +3,6 @@ const startButton = document.getElementById('startButton');
 
 const highScore = document.getElementById('highScore');
 
-
 const h1 = document.getElementById('h1');
 const p = document.getElementById('p');
 const initials = document.getElementById('initials');
@@ -25,8 +24,13 @@ const ans = document.getElementById('answer');
 
 const submitButton = document.getElementById('submitButton');
 
-
 const initialsContainer = document.getElementById('initialsContainer');
+
+const clearHighScores = document.getElementById('clearHighScores');
+
+const line = document.getElementsByClassName('line');
+const ol = document.getElementById('ol');
+
 
 let time = 60;
 let score;
@@ -80,6 +84,16 @@ const questions = [
             'SyntaxError'
         ],
         answer: 'true'
+    },
+    {
+        question: 'What is the correct syntax for referring to an external script called "gfg.js"?',
+        answers: [
+            '<script name="gfg.js">',
+            '<script href="gfg.js">',
+            '<script src="gfg.js">',
+            'None of these'
+        ],
+        answer: '<script src="gfg.js">'
     }
 
 ]
@@ -98,7 +112,6 @@ function timerStart() {
     remainingTime = setInterval(timer, 1000);
 }
 
-
 function startGame() {
     startButton.classList.add('hide'); //hides the start button
     firstPage.classList.add('hide'); //hides the first page
@@ -109,17 +122,14 @@ function startGame() {
 
 }
 
-
 function nextQuestion() {
-    // console.log(shuffledQuestions)
-    // console.log(questionNumber)
+    
     if (questions.length === questionNumber) {
         scoreBoard();
         return;
     }
 
     showQuestion(shuffledQuestions[questionNumber]);
-
 
 }
 
@@ -145,16 +155,16 @@ function showQuestion(questions) {
 
 function selectAnswer(event) {
     const buttonClicked = event.target;
-    const correctAnswer = buttonClicked.dataset.answer;
     ans.classList.remove('hide');
     if (buttonClicked.value === questions[questionNumber].answer) {
-        // score++;
         ans.textContent = 'Correct!';
-    } else {
+    }else if(buttonClicked.value !== questions[questionNumber].answer && time <= 10){
+        time = 0;
+        ans.textContent = 'Incorrect.';
+    }else{
         time = time - 10;
         ans.textContent = 'Incorrect.';
     }
-    // choiceButtons.addEventListener('click', choice);
     questionNumber++;
     nextQuestion();
 }
@@ -165,6 +175,7 @@ function showHighScore() {
     startButton.classList.add('hide');
     h1.textContent = 'High Scores';
     goBackButton.classList.remove('hide');
+    clearHighScores.classList.remove('hide');
     questionContainer.classList.add('hide');
     firstPage.classList.remove('hide');
     submitButton.classList.add('hide');
@@ -175,15 +186,16 @@ function showHighScore() {
     highScore.textContent = '';
 
     //for loop gets high scores from local and print it to the highscore list
-    for (let i = 0; i < localStorage.length; i++) {
+    node = document.createElement("ol");
+    node.setAttribute('id', 'ol');
 
-        node = document.createElement("li");
+    for (let i = 0; i < localStorage.length; i++) {
+        let lines = document.createElement('li');
+        node.appendChild(lines);
         node.classList.add('line');
-        let textnode = document.createTextNode(localStorage.key(i) + ': ' + JSON.parse(localStorage.getItem(localStorage.key(i))));
-        node.appendChild(textnode);
+        lines.textContent = localStorage.key(i) + ': ' + JSON.parse(localStorage.getItem(localStorage.key(i)));
         document.getElementById("initialsContainer").appendChild(node);
     }
-
 
 }
 
@@ -213,6 +225,17 @@ function goBack() {
     window.location.reload();
 }
 
+function clear() {
+
+    let isCleared = window.confirm('Do you want to clear the high scores?');
+    if (isCleared) {
+        localStorage.clear();
+        window.location.reload();
+        window.alert('High scores are cleared!');
+    }
+}
+
 startButton.addEventListener('click', startGame);
 highScore.addEventListener('click', showHighScore);
 submitButton.addEventListener('click', submit);
+clearHighScores.addEventListener('click', clear);

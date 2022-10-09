@@ -130,7 +130,9 @@ body{
 }
 
 .line{
-    margin: auto;
+    margin-bottom: 5px;
+    background-color: lightsteelblue;
+    text-align: left;
 }
 
 #answer{

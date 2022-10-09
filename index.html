@@ -31,8 +31,10 @@
 
     <button class="startButton button" id="startButton">Start Quiz</button>
     <button class="button hide" onClick="goBack()" id="goBackButton">Go Back</button>
+    <button class="button hide" onClick="clear()" id="clearHighScores">Clear High Scores</button>
 
   </section>
+
 
   <!-- After First Page -->
   <section class="container">
@@ -40,11 +42,9 @@
       <div id="question">Question</div>
       
       <div id="answerButtons">
-        <!-- <button class="button">Answer 1</button>
-        <button class="button">Answer 2</button>
-        <button class="button">Answer 3</button>
-        <button class="button">Answer 4</button> -->
+        <!-- Buttons are created inside the JS document. -->
       </div>
+      <!-- Chosen Answer -->
       <h3 id="answer" class="hide"></h3>
     </section>
   </section>
