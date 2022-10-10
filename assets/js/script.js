@@ -1,4 +1,4 @@
-// gets the id for start button from HTML file and associates it with clicking action to start the game 
+// gets the ids and classes from HTML file and associates it with JavaScript files to use them in JavaScript
 const startButton = document.getElementById('startButton');
 
 const highScore = document.getElementById('highScore');
@@ -31,7 +31,7 @@ const clearHighScores = document.getElementById('clearHighScores');
 const line = document.getElementsByClassName('line');
 const ol = document.getElementById('ol');
 
-
+//Global Variables
 let time = 60;
 let score;
 let remainingTime;
@@ -41,6 +41,8 @@ let questionNumber = 0;
 let setScoreLocal;
 
 var li;
+
+// Questions and Answers
 const questions = [
     {
         question: 'Inside which HTML element do we put the JavaScript?',
@@ -98,6 +100,7 @@ const questions = [
 
 ]
 
+// Timer
 function timer() {
 
     if (time <= 0) {
@@ -108,10 +111,12 @@ function timer() {
 
 }
 
+//Starting function of timer
 function timerStart() {
     remainingTime = setInterval(timer, 1000);
 }
 
+//Start Game
 function startGame() {
     startButton.classList.add('hide'); //hides the start button
     firstPage.classList.add('hide'); //hides the first page
@@ -122,6 +127,7 @@ function startGame() {
 
 }
 
+//Next Question - checks if it runs out of questions, if so finishes the game
 function nextQuestion() {
     
     if (questions.length === questionNumber) {
@@ -133,12 +139,14 @@ function nextQuestion() {
 
 }
 
+//Showing questions to the screen
 function showQuestion(questions) {
     // var currentQuestion = questions[questionNumber];
     questionElement.textContent = questions.question; //shows the question
     let choiceButtons;
     answerButtons.textContent = '';
 
+    //creates the buttons for multiple choices
     for (let i = 0; i < questions.answers.length; i++) {
         let choice = questions.answers[i];
         choiceButtons = document.createElement('button'); // creating button divs forEach choice in the questions array
@@ -151,12 +159,13 @@ function showQuestion(questions) {
 
 }
 
+//Checks the answer is correct of not, updates timer and pulls next question
 function selectAnswer(event) {
     const buttonClicked = event.target;
     ans.classList.remove('hide');
     if (buttonClicked.value === questions[questionNumber].answer) {
         ans.textContent = 'Correct!';
-    }else if(buttonClicked.value !== questions[questionNumber].answer && time <= 10){
+    }else if(buttonClicked.value !== questions[questionNumber].answer && time <= 10){ //this part does not allow the page to go beyond zero to negative values
         time = 0;
         ans.textContent = 'Incorrect.';
     }else{
@@ -167,6 +176,7 @@ function selectAnswer(event) {
     nextQuestion();
 }
 
+//Shows high scores, and gets local storage data
 function showHighScore() {
 
     timerCount.classList.add('hide');
@@ -186,6 +196,7 @@ function showHighScore() {
     node = document.createElement("ol");
     node.setAttribute('id', 'ol');
 
+    //Sorting arrays from highest to lowest
     let initialsList = Object.keys(localStorage);
     let highestToLowest = initialsList.sort(function(a, b) {
       return localStorage[b] - localStorage[a];
@@ -207,6 +218,7 @@ function showHighScore() {
 
 }
 
+//Post-quiz page to prompt user to get initials
 function scoreBoard() {
     clearInterval(remainingTime);
     score = timeCounter.textContent = time;
@@ -221,6 +233,7 @@ function scoreBoard() {
     textBox.value;
 }
 
+//sets score to localstorage
 function submit() {
     setScoreLocal = localStorage.setItem(textBox.value, JSON.stringify(score));
     textBox.value = '';
@@ -229,10 +242,12 @@ function submit() {
 
 }
 
+//Go back button to go to first page
 function goBack() {
     window.location.reload();
 }
 
+//Clear function to clear high scores in localstorage
 function clear() {
 
     let isCleared = window.confirm('Do you want to clear the high scores?');
@@ -243,6 +258,7 @@ function clear() {
     }
 }
 
+//Click events
 startButton.addEventListener('click', startGame);
 highScore.addEventListener('click', showHighScore);
 submitButton.addEventListener('click', submit);
