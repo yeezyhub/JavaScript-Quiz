@@ -135,7 +135,6 @@ function nextQuestion() {
 
 function showQuestion(questions) {
     // var currentQuestion = questions[questionNumber];
-    console.log(questions)
     questionElement.textContent = questions.question; //shows the question
     let choiceButtons;
     answerButtons.textContent = '';
@@ -148,7 +147,6 @@ function showQuestion(questions) {
         choiceButtons.textContent = questions.answers[i]; // adding text to the buttons
         answerButtons.appendChild(choiceButtons); //attaching created buttons to answerButtons div
         choiceButtons.addEventListener('click', selectAnswer);
-        console.log(questionNumber);
     }
 
 }
@@ -188,14 +186,24 @@ function showHighScore() {
     node = document.createElement("ol");
     node.setAttribute('id', 'ol');
 
+    let initialsList = Object.keys(localStorage);
+    let highestToLowest = initialsList.sort(function(a, b) {
+      return localStorage[b] - localStorage[a];
+    }) 
+
+    let scoreList = Object.values(localStorage);
+    let highestToLowestNumbers = scoreList.sort((a, b) => b - a);
+
     //for loop gets high scores from local and print it to the highscore list
     for (let i = 0; i < localStorage.length; i++) {
         let lines = document.createElement('li');
         node.appendChild(lines);
         node.classList.add('line');
-        lines.textContent = localStorage.key(i) + ': ' + JSON.parse(localStorage.getItem(localStorage.key(i)));
+        lines.textContent = highestToLowest[i] + ': ' + JSON.parse(highestToLowestNumbers[i]);
         document.getElementById("initialsContainer").appendChild(node);
     }
+
+    
 
 }
 
