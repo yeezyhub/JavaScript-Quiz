@@ -1,8 +1,8 @@
-# Module-4-Challenge-Quiz
+# JavaScript Quiz
 
 ## Deployed Website
 
-[Quiz](https://yeezyhub.github.io/Module-4-Challenge-Quiz/)
+[Quiz](https://yeezyhub.github.io/JavaScript-Quiz/)
 
 ## Description
 
