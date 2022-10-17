@@ -2,7 +2,7 @@
 
 ## Deployed Website
 
-[Quiz](https://yeezyhub.github.io/JavaScript-Quiz/)
+[JavaScript Quiz](https://yeezyhub.github.io/JavaScript-Quiz/)
 
 ## Description
 
